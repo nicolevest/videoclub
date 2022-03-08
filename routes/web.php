@@ -20,11 +20,13 @@ Route::get('catalog/create',[CatalogController::class,"getCreate"])
 Route::get('catalog/edit/{id}', [CatalogController::class, "getEdit"])
 ->whereNumber("id")->middleware(["auth"]);
 
+
+Route::put("catalog/edit/{id}", [CatalogController::class, "putEdit"])->middleware(['auth']);
+
 Route::get("login",[AuthenticatedSessionController::class,'create']); // controlador y método
 
 Route::get("signup",[RegisteredUserController::class,'create']); // controlador y método
 //
 Route::post("catalog/create", [CatalogController::class, "postCreate"])->middleware(['auth']);                   //solo accesible cuando el usuario está auth
-Route::put("catalog/edit/{id}", [CatalogController::class, "putEdit"])->whereNumber('id')->middleware(['auth']);
 
 require __DIR__.'/auth.php';

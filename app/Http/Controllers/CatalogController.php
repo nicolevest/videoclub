@@ -56,7 +56,7 @@ class CatalogController extends Controller
 		$movie->synopsis = $req->input('synopsis');
 		$result = $movie->save();
 		if ($result){
-			return redirect()->action($this->getShow($id));
+			return redirect()->action([CatalogController::class, 'getShow'], ['id' => $id]);
 		} else {
 			return ['result' => 'error'];
 		}

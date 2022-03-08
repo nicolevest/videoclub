@@ -9,10 +9,11 @@
          </div>
          <div class="card-body" style="padding:30px">
 
-            <form action='{{url("catalog/edit/$pelicula->id")}}' method="POST">
-
+            <form action='{{ url("/catalog/edit/$pelicula->id")}}' method="POST">
             {{ csrf_field() }}
-            @method('PUT')
+
+            {{ method_field('PUT') }}
+
 
             <div class="form-group">
                <label for="title">Título</label>
