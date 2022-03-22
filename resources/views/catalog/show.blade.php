@@ -25,9 +25,36 @@
      </p>
 
     <div>
-    <a class="btn btn-danger">
-				Devolver Película
-			</a>
+ <!--  -->
+ @if ( $pelicula->rented )
+
+ <form method="POST" action='{{ url("catalog/return/$pelicula->id") }}' style="display: inline;">
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
+        <button class="btn btn-success" type="submit">
+            Devolver Película
+        </button>
+	</form>
+
+@else
+<form method="POST" action='{{ url("catalog/rent/$pelicula->id") }}' style="display: inline;">
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
+        <button class="btn btn-primary" type="submit">
+            Alquilar Película
+        </button>
+	</form>
+
+@endif
+
+<form method="POST" action='{{ url("catalog/delete/$pelicula->id") }}' style="display: inline;">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <button class="btn btn-danger" type="submit">
+            Eliminar Película
+        </button>
+	</form>
+
             <a href="{{ url('catalog/edit/' . $pelicula->id) }}" class="btn btn-warning">
 				<div class="text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">

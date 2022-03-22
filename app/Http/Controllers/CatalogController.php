@@ -41,7 +41,8 @@ class CatalogController extends Controller
 		$movie->synopsis = $req->input('synopsis');
 		$result = $movie->save();//true o false
 		if ($result){
-			return redirect()->action($this->getIndex());
+            notify()->success('Película creada correctamente','Crear película'); //invocamos notificación
+			return redirect()->action([CatalogController::class, 'getIndex']);
 		} else {
 			return ['result' => 'error'];
 		}
@@ -56,10 +57,45 @@ class CatalogController extends Controller
 		$movie->synopsis = $req->input('synopsis');
 		$result = $movie->save();
 		if ($result){
+            notify()->success('Película editada correctamente','Editar película'); //invocamos notificación
 			return redirect()->action([CatalogController::class, 'getShow'], ['id' => $id]);
 		} else {
 			return ['result' => 'error'];
 		}
 
     }
+
+    public function putRent($id)
+	{
+		$movie = Movie::findOrFail($id);
+		$movie->rented = true;
+		if ($movie->save()) {
+			notify()->success('Película rentada','Rentar película'); //invocamos notificación
+			return redirect()->action([CatalogController::class, 'getShow'], ['id' => $id]);
+		} else {
+			return ['result' => 'error'];
+		}
+	}
+
+    public function putReturn($id)
+	{
+		$movie = Movie::findOrFail($id);
+		$movie->rented = false;
+		if ($movie->save()) {
+			notify()->success('Película devuelta',' Devolución película'); //invocamos notificación
+			return redirect()->action([CatalogController::class, 'getShow'], ['id' => $id]);
+		} else {
+			return ['result' => 'error'];
+		}
+	}
+    public function deleteMovie($id)
+        {
+            $movie = Movie::findOrFail($id);
+            if ($movie->delete()) {
+                notify()->success('Película eliminada correctamente','Eliminar película'); //invocamos notificación
+			return redirect()->action([CatalogController::class, 'getIndex']);
+            } else {
+                return ['result' => 'error'];
+            }
+        }
 }

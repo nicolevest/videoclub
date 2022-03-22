@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link href="{{ url('/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <title>Videoclub</title>
+    @notifyCss <!-- importa estilos css -->
+    <link href="{{ url('/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -20,7 +22,11 @@
         @yield('content')
     </div>
 
+
     <script src="{{ url('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <x:notify-messages/>
+    @notifyJs
 
 </body>
 

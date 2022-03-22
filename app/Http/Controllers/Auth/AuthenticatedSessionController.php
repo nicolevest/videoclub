@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-  
+
     public function create()
     {
         return view('auth.login');
@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        notify()->success('Sesión iniciada correctamente','Iniciar sesión');
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
+        notify()->success('Sesión cerrada correctamente','Cerrar sesión');
         return redirect('/');
     }
 }

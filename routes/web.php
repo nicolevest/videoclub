@@ -27,6 +27,20 @@ Route::get("login",[AuthenticatedSessionController::class,'create']); // control
 
 Route::get("signup",[RegisteredUserController::class,'create']); // controlador y método
 //
-Route::post("catalog/create", [CatalogController::class, "postCreate"])->middleware(['auth']);                   //solo accesible cuando el usuario está auth
+Route::post("catalog/create", [CatalogController::class, "postCreate"])->middleware(['auth']);
+            //solo accesible cuando el usuario está auth
+
+//conectamos la ruta con los métodos de los controladores
+Route::put("catalog/rent/{id}", [CatalogController::class, "putRent"])
+    ->whereNumber("id")->middleware(['auth']);
+
+Route::put("catalog/return/{id}", [CatalogController::class, "putReturn"])
+    ->whereNumber("id")->middleware(['auth']);
+
+Route::delete("catalog/delete/{id}", [CatalogController::class, "deleteMovie"])
+    ->whereNumber("id")->middleware(['auth']);
+
+
 
 require __DIR__.'/auth.php';
+
